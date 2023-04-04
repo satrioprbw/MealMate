@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import router from '../router'
 
 export const useMainStore = defineStore('main', {
   state: () => {
@@ -20,6 +21,7 @@ export const useMainStore = defineStore('main', {
             email, password
           }
         })
+        router.push('/')
       } catch (error) {
         console.log(error);
       }

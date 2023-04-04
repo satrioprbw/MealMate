@@ -1,5 +1,21 @@
 <script>
+import { mapActions } from 'pinia';
+import { useMainStore } from '../stores/main';
 
+export default {
+  data() {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    ...mapActions(useMainStore, ['loginHandler']),
+    handleSubmit(){
+      this.loginHandler(this.email, this.password)
+    }
+  }
+}
 </script>
 
 <template>
@@ -16,7 +32,7 @@
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
 
-                  <form>
+                  <form @submit.prevent="handleSubmit">
 
                     <div class="d-flex align-items-center mb-3 pb-1">
                       <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>

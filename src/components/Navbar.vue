@@ -1,6 +1,6 @@
 <script>
-import { mapActions } from 'pinia';
-import { useMainStore } from '../stores/main';
+// import { mapActions } from 'pinia';
+// import { useMainStore } from '../stores/main';
 
 export default {
   data() {
@@ -8,12 +8,12 @@ export default {
       searchInput: ''
     }
   },
-  methods: {
-    ...mapActions(useMainStore, ['fetchRecipe']),
-    handleSearch() {
-      this.fetchRecipe(this.searchInput)
-    }
-  }
+  // methods: {
+  //   ...mapActions(useMainStore, ['fetchRecipe']),
+  //   handleSearch() {
+  //     this.fetchRecipe(this.searchInput)
+  //   }
+  // }
 }
 </script>
 
