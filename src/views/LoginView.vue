@@ -12,6 +12,7 @@ export default {
   methods: {
     ...mapActions(useMainStore, ['loginHandler']),
     handleSubmit(){
+      
       this.loginHandler(this.email, this.password)
     }
   }
@@ -43,12 +44,12 @@ export default {
                     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign in to your account</h5>
 
                     <div class="form-outline mb-4">
-                      <input name="email" type="email" id="form2Example17" class="form-control form-control-lg" />
+                      <input v-model="email" name="email" type="email" id="form2Example17" class="form-control form-control-lg" />
                       <label class="form-label" for="form2Example17">Email address</label>
                     </div>
 
                     <div class="form-outline mb-4">
-                      <input name="password" type="password" id="form2Example27" class="form-control form-control-lg" />
+                      <input v-model="password" name="password" type="password" id="form2Example27" class="form-control form-control-lg" />
                       <label class="form-label" for="form2Example27">Password</label>
                     </div>
 

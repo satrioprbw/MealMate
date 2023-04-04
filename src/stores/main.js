@@ -13,6 +13,7 @@ export const useMainStore = defineStore('main', {
   },
   actions: {
     async loginHandler(email, password) {
+      console.log(email, password);
       try {
         const { data } = await axios({
           method: 'POST',
@@ -58,6 +59,9 @@ export const useMainStore = defineStore('main', {
           url: `${this.static_url}/bookmark/${RecipeId}`,
           data: {
             image_url, publisher, title
+          },
+          headers: {
+            access_token : localStorage.access_token
           }
         })
         console.log(data);

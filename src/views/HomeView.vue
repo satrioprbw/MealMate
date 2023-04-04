@@ -31,7 +31,6 @@ export default {
       <Card v-for="recipes in recipeData.data.recipes" :recipes="recipes" />
     </div>
   </div>
-  <pre>{{ recipeData.data.recipes }}</pre>
 </template>
 
 <style>
