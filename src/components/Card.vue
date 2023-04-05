@@ -4,9 +4,8 @@ import { useMainStore } from '../stores/main';
 import router from '../router';
 
 export default {
-  data(){
+  data() {
     return {
-      recipe : this.recipes
     }
   },
   props: ['recipes'],
@@ -15,12 +14,12 @@ export default {
   },
   methods: {
     ...mapActions(useMainStore, ['addBookmark']),
-    handleAdd(){
-      this.addBookmark(this.recipe.id, this.recipe.image_url, this.recipe.publisher, this.recipe.title)
+    handleAdd() {
+      this.addBookmark(this.recipes.id, this.recipes.image_url, this.recipes.publisher, this.recipes.title)
       router.push('/')
     }
   }
-  
+
 }
 </script>
 
@@ -34,9 +33,11 @@ export default {
       </div>
       <div>
         <a href="#" class="btn mt-3" style="background-color: #AEBDCA;">Detail</a>
-        <a @click.prevent="handleAdd" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
-  <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-</svg></a>
+        <a v-if="$route.name !== 'bookmark'" @click.prevent="handleAdd" href="#"><svg xmlns="http://www.w3.org/2000/svg"
+            width="26" height="26" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
+            <path
+              d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+          </svg></a>
       </div>
       <div>
       </div>

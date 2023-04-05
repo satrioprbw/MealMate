@@ -9,6 +9,7 @@ export const useMainStore = defineStore('main', {
       recipeData: [],
       detailRecipe: [],
       bookmarkData: [],
+      mealplanData: {},
       apiKey: 'db64978c-974a-49c3-b2e2-70e6bd64d1d2',
       static_url: 'http://localhost:3000',
       token : localStorage.access_token
@@ -104,7 +105,6 @@ export const useMainStore = defineStore('main', {
             access_token : localStorage.access_token
           }
         })
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -120,6 +120,21 @@ export const useMainStore = defineStore('main', {
           }
         })
         this.bookmarkData = data
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async getMealplan() {
+      try {
+        const { data } = await axios({
+          method: 'GET',
+          url: `${this.static_url}/mealplan`,
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+        this.mealplanData = data
       } catch (error) {
         console.log(error);
       }

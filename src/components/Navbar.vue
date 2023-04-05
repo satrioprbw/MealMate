@@ -22,11 +22,11 @@ export default {
       this.loginHandler(this.emailLogin, this.passwordLogin)
       this.emailLogin = ''
       this.passwordLogin = ''
-      
+
     },
     handleSubmitRegister() {
       this.registerHandler(this.usernameRegister, this.emailRegister, this.passwordRegister)
-      if(this.subscribeConsent){
+      if (this.subscribeConsent) {
         this.subscribeMail(this.emailRegister)
       }
       this.usernameRegister = ''
@@ -49,7 +49,13 @@ export default {
           <img src="../assets/logo-no-background.png" width="180" height="30" alt="logo">
         </a>
         <div>
-          <button @click.prevent="$router.push('/bookmark')" :class="token?'btn btn-warning col-12 me-3':'btn btn-warning disabled'">Bookmark</button>
+          <button @click.prevent="$router.push('/bookmark')"
+            :class="token ? 'btn btn-warning col-12 me-3' : 'btn btn-warning disabled'"><svg
+              xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-fill"
+              viewBox="0 0 16 16">
+              <path
+                d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z" />
+            </svg> Bookmark</button>
         </div>
         <div v-if="!token" class="ms-3">
           <a class="btn btn-dark" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Login / Register</a>
@@ -62,8 +68,8 @@ export default {
       </nav>
     </div>
   </div>
-  <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
-    aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+    tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header" style="background-color: #F1A661;">
@@ -93,8 +99,7 @@ export default {
             </div>
 
             <div class="pt-1 mb-1">
-              <button data-bs-toggle="modal" class="btn btn-dark btn-lg btn-block"
-                type="submit">Login</button>
+              <button data-bs-toggle="modal" class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
               <p style="margin-top: 20px">or Sign In with</p>
             </div>
 
@@ -147,7 +152,7 @@ export default {
             </div>
 
             <div class="mb-2">
-              <input v-model="subscribeConsent" type="checkbox" >
+              <input v-model="subscribeConsent" type="checkbox">
               <span class="ms-2">Subscribe to our newsletter</span>
             </div>
 
@@ -162,5 +167,4 @@ export default {
         </div>
       </div>
     </div>
-  </div>
-</template>
+</div></template>

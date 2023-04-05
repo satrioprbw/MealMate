@@ -9,16 +9,44 @@ export default {
   },
   data() {
     return {
+      dataPerDay: '',
+      mealTime: ['Breakfast', 'Lunch', 'Dinner']
     }
   },
   methods: {
-    ...mapActions(useMainStore, ['getBookmark'])
+    ...mapActions(useMainStore, ['getMealplan']),
+    testing() {
+      console.log(this.mealplanData)
+      // this.dataPerDay = Object.keys(this.mealplanData).map(key => {
+      //   const temp = this.mealplanData[key]
+      //   if (this.mealplanData[key].length !== 3) {
+      //     const diff = 3 - this.mealplanData[key].length;
+      //     console.log(diff)
+      //     for (let i = 0; i < diff; i++) {
+      //       temp.push({})
+      //     }
+      //   }
+      //   return temp;
+      // })
+      // console.log(this.dataPerDay)
+      const baru = {}
+      for (let i = 0; i < 3; i++) {
+        const arrBaru = []
+        Object.keys(this.mealplanData).forEach(key => {
+          arrBaru.push(this.mealplanData[key][i])
+        })
+        baru[i] = arrBaru
+      }
+      this.dataPerDay = baru
+      console.log(this.dataPerDay)
+    }
   },
   computed: {
-    ...mapState(useMainStore, ['bookmarkData'])
+    ...mapState(useMainStore, ['mealplanData'])
   },
-  created() {
-    this.getBookmark()
+  async created() {
+    await this.getMealplan()
+    this.testing()
   }
 }
 </script>
@@ -28,7 +56,7 @@ export default {
     <div class="col-md-12">
       <h1 class="text-center mb-5">My Weekly Meal Plan</h1>
       <div class="table-wrap">
-        <table class="table table-bordered text-center">
+        <table style="background-color: #F1A661;" class="table table-bordered text-center overflow-auto">
           <thead>
             <tr>
               <th>Time</th>
@@ -42,86 +70,42 @@ export default {
             </tr>
           </thead>
           <tbody>
-            <tr v-for="recipes in bookmarkData">
-              <td>
-              </td>
-              <td><i class="fa fa-close"></i>
-                <MiniCard :recipes="recipes" />
-              </td>
+            <tr v-for="recipes, i in dataPerDay">
               <td class="text-center">
+                <h4>{{ mealTime[i] }}</h4>
               </td>
-              <td><i class="fa fa-close"></i></td>
-              <td class="text-center">
+              <td v-for="recipe in recipes">
+                <MiniCard :recipes="recipe" v-if="recipe"/>
               </td>
-              <td><i class="fa fa-close"></i></td>
-              <td class="text-center">
+              <!-- <td class="text-center">
               </td>
-              <td><i class="fa fa-close"></i></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td><i class="fa fa-close"></i></td>
-              <td class="text-center">
-              </td>
-              <td><i class="fa fa-close"></i></td>
-              <td class="text-center">
-              </td>
-              <td><i class="fa fa-close"></i></td>
-              <td class="text-center">
-              </td>
-              <td><i class="fa fa-close"></i></td>
-            </tr>
-            <tr>
               <td></td>
               <td class="text-center">
-                
               </td>
-              <td><i class="fa fa-close"></i></td>
-              <td class="text-center">
-                
-              </td>
-              <td><i class="fa fa-close"></i></td>
-              <td class="text-center">
-                
-              </td>
-              <td><i class="fa fa-close"></i></td>
-              <td class="text-center">
-                
-              </td>
-            </tr>
-            <tr>
               <td></td>
-              <td><i class="fa fa-close"></i></td>
               <td class="text-center">
-                
               </td>
-              <td><i class="fa fa-close"></i></td>
-              <td class="text-center">
-                
-              </td>
-              <td><i class="fa fa-close"></i></td>
-              <td class="text-center">
-                
-              </td>
-              <td><i class="fa fa-close"></i></td>
+              <td></td> -->
             </tr>
+            
           </tbody>
-        <tfoot>
-          <tr>
-            <th><a href="#"><i class="fa fa-long-arrow-left"></i> September</a></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th><a href="#">November <i class="fa fa-long-arrow-right"></i></a></th>
-            <th></th>
-          </tr>
-        </tfoot>
-      </table>
+          <tfoot>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
     </div>
   </div>
-</div></template>
+</template>
 
 <style>
 td {
