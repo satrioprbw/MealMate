@@ -16,7 +16,6 @@ export default {
   methods: {
     ...mapActions(useMainStore, ['getMealplan']),
     testing() {
-      console.log(this.mealplanData)
       // this.dataPerDay = Object.keys(this.mealplanData).map(key => {
       //   const temp = this.mealplanData[key]
       //   if (this.mealplanData[key].length !== 3) {
@@ -77,30 +76,8 @@ export default {
               <td v-for="recipe in recipes">
                 <MiniCard :recipes="recipe" v-if="recipe"/>
               </td>
-              <!-- <td class="text-center">
-              </td>
-              <td></td>
-              <td class="text-center">
-              </td>
-              <td></td>
-              <td class="text-center">
-              </td>
-              <td></td> -->
             </tr>
-            
           </tbody>
-          <tfoot>
-            <tr>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
-          </tfoot>
         </table>
       </div>
     </div>

@@ -56,7 +56,17 @@ export default {
               <path
                 d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z" />
             </svg> Bookmark</button>
-        </div>
+          </div>
+          <div class="mx-3">
+            <button @click.prevent="$router.push('/mealplan')" :class="token ? 'btn btn-warning col-12 me-3' : 'btn btn-warning disabled'" type="button"><svg
+                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus"
+                viewBox="0 0 16 16">
+                <path
+                  d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z" />
+                <path
+                  d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+              </svg> My Meal Plan</button>
+          </div>
         <div v-if="!token" class="ms-3">
           <a class="btn btn-dark" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Login / Register</a>
 
@@ -167,4 +177,5 @@ export default {
         </div>
       </div>
     </div>
-</div></template>
+  </div>
+</template>

@@ -38,7 +38,7 @@ export default {
     <form @submit.prevent="handleSearch" class="justify-content-center col-3 ms-5">
       <div class="input-group mb-3">
         <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Search</button>
-        <input v-model="searchInput" type="text" class="form-control" placeholder="" aria-label="Example text with button addon"
+        <input v-model="searchInput" type="text" class="form-control" placeholder="Pizza, Pasta, Chicken ..." aria-label="Example text with button addon"
           aria-describedby="button-addon1">
       </div>
     </form>

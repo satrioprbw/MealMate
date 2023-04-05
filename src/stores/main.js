@@ -12,7 +12,12 @@ export const useMainStore = defineStore('main', {
       mealplanData: {},
       apiKey: 'db64978c-974a-49c3-b2e2-70e6bd64d1d2',
       static_url: 'http://localhost:3000',
-      token : localStorage.access_token
+      token : localStorage.access_token,
+      city: '',
+      region: '',
+      country: '',
+      longitude: '',
+      latitude: ''
     }
   },
   actions: {
@@ -51,7 +56,6 @@ export const useMainStore = defineStore('main', {
             username, email, password
           }
         })
-        router.push('/')
         Swal.fire({
           title: "Success Register!",
           icon: "success",
@@ -60,6 +64,11 @@ export const useMainStore = defineStore('main', {
         })
       } catch (error) {
         console.log(error);
+        Swal.fire({
+          title: "Error Register!",
+          text: error.response.data.message,
+          icon: "error"
+        })
       }
     },
 
@@ -67,6 +76,14 @@ export const useMainStore = defineStore('main', {
       localStorage.removeItem('access_token')
       this.token = ''
       router.push('/')
+      Swal.fire({
+        toast: true,
+        position: 'top',
+        title: "Success Logout!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500
+      })
     },
 
     async fetchRecipe(search) {
@@ -78,6 +95,11 @@ export const useMainStore = defineStore('main', {
         this.recipeData = data
       } catch (error) {
         console.log(error);
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error"
+        })
       }
     },
 
@@ -90,6 +112,11 @@ export const useMainStore = defineStore('main', {
         this.detailRecipe = data
       } catch (error) {
         console.log(error);
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error"
+        })
       }
     },
 
@@ -105,10 +132,84 @@ export const useMainStore = defineStore('main', {
             access_token : localStorage.access_token
           }
         })
+        Swal.fire({
+          title: data,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        })
       } catch (error) {
         console.log(error);
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error"
+        })
       }
     },
+
+    async removeBookmark(id){
+      try {
+        const { data } = await axios({
+          method: 'PATCH',
+          url: `${this.static_url}/bookmark/${id}`,
+          headers: {
+            access_token : localStorage.access_token
+          }
+        })
+        Swal.fire({
+          toast: true,
+          position: 'top',
+          title: data,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.getBookmark()
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error"
+        })
+      }
+    },
+
+    async addMealplan(id, day, order){
+      console.log(id, day, order);
+      try {
+        const { data } = await axios({
+          method: 'PATCH',
+          url: `${this.static_url}/bookmark/${id}`,
+          data: {
+            day, order
+          },
+          headers: {
+            access_token : localStorage.access_token
+          }
+        })
+        Swal.fire({
+          toast: 'Success add to meal plan',
+          position: 'top',
+          title: data,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.getMealplan()
+        router.push('/mealplan')
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error"
+        })
+      }
+    },
+
+
 
     async getBookmark() {
       try {
@@ -122,6 +223,11 @@ export const useMainStore = defineStore('main', {
         this.bookmarkData = data
       } catch (error) {
         console.log(error);
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error"
+        })
       }
     },
 
@@ -137,6 +243,11 @@ export const useMainStore = defineStore('main', {
         this.mealplanData = data
       } catch (error) {
         console.log(error);
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error"
+        })
       }
     },
 
@@ -157,9 +268,13 @@ export const useMainStore = defineStore('main', {
           showConfirmButton: false,
           timer: 1500
         })
-        console.log(data);
       } catch (error) {
-        
+        console.log(error);
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error"
+        })
       }
     }
   }
