@@ -13,7 +13,7 @@ export default {
       passwordLogin: '',
       usernameRegister: '',
       emailRegister: '',
-      passwordRegister: ''
+      passwordRegister: '',
       token : localStorage.access_token
 
     }
