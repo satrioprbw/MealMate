@@ -1,6 +1,8 @@
 <script>
+import { mapActions, mapState } from 'pinia';
 import Card from '../components/Card.vue'
 import axios from 'axios';
+import { useMainStore } from '../stores/main';
 
 export default {
   components: {
@@ -8,37 +10,30 @@ export default {
   },
   data() {
     return {
-      bookmarkData: []
     }
   },
   methods: {
-    async getBookmark() {
-      try {
-        const { data } = await axios({
-          method: 'GET',
-          url: 'http://localhost:3000/bookmark',
-          headers: {
-            access_token: localStorage.access_token
-          }
-        })
-        this.bookmarkData = data
-      } catch (error) {
-        console.log(error);
-      }
-    }
+    ...mapActions(useMainStore, ['getBookmark'])
   },
-  created(){
+  computed: {
+    ...mapState(useMainStore, ['bookmarkData'])
+  },
+  created() {
     this.getBookmark()
   }
 }
 </script>
 
 <template>
-  <div style="background-color: #F5EFE6; padding-top: 100px;">
-    <div class="col-lg-12 col-sm-6 col-md-8 d-flex flex-row flex-wrap justify-content-center">
+  <div class="container h-100 pb-5 mb-5 pb-5" style=" margin-top: 100px; ;">
+    <h1 class="text-center mb-5">My Recipe Bookmark</h1>
+    <div class="overflow-auto mx-5 pb-5"
+    style=" padding-bottom: 100px; height: 800px; background-color: #F1A661; border-radius: 10px;">
+      <div class="col-lg-12 col-sm-6 col-md-8 d-flex flex-row flex-wrap justify-content-center">
 
-      <Card v-for="recipes in bookmarkData" :recipes="recipes" />
+        <Card v-for="recipes in bookmarkData" :recipes="recipes" />
 
+      </div>
     </div>
   </div>
 </template>
