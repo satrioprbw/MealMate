@@ -2,7 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 
+import RegisterView from '../views/RegisterView.vue'
 import BookmarkView from '../views/BookmarkView.vue'
+import MealplanView from '../views/MealplanView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,14 +23,24 @@ const router = createRouter({
     {
       path: '/register',
       name: 'register',
-      component: 
+      component: RegisterView
+
     },
     {
       path: '/bookmark',
       name: 'bookmark',
       component: BookmarkView
+    },
+    {
+      path: '/mealplan',
+      name: 'mealplan',
+      component: MealplanView
     }
   ]
+})
+
+router.beforeEach((to) => {
+  
 })
 
 export default router

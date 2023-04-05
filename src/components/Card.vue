@@ -25,8 +25,8 @@ export default {
 </script>
 
 <template>
-  <div class="card text-white mb-3 m-3 " style="width: 20rem; background-color: #7895B2;">
-    <img style="height: 280px; object-fit: cover;" :src="recipes.image_url" class="card-img-top " alt="...">
+  <div class="card text-white mb-3 m-3 " style="width: 15rem; background-color: #E38B29;">
+    <img style="height: 180px; object-fit: cover;" :src="recipes.image_url" class="card-img-top " alt="...">
     <div class="card-body d-flex flex-column justify-content-between text-monospace">
       <div class="mb-2">
         <h4 class="card-title text-truncate">{{ recipes.title }}</h4>

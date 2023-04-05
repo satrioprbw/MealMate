@@ -1,6 +1,7 @@
 <script>
 import { mapActions } from 'pinia';
 import { useMainStore } from '../stores/main';
+import router from '../router';
 
 export default {
   data() {
@@ -36,7 +37,6 @@ export default {
                   <form @submit.prevent="handleSubmit">
 
                     <div class="d-flex align-items-center mb-3 pb-1">
-                      <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
                       <span class="h1 fw-bold mb-0 "><img style="width: 400px;" src="../assets/logo-no-background.png"
                           alt=""></span>
                     </div>
@@ -60,7 +60,7 @@ export default {
 
                     <GoogleLogin :callback="callback" prompt />
 
-                    <p class=" pb-lg-2">Don't have an account? <a href="#!" style="color: #393f81;">Register
+                    <p class=" pb-lg-2">Don't have an account? <a @click.prevent="$router.push('/register')" href="#!" style="color: #393f81;">Register
                         here</a></p>
                   </form>
 
