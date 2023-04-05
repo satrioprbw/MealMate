@@ -11,7 +11,7 @@ export const useMainStore = defineStore('main', {
       bookmarkData: [],
       apiKey: 'db64978c-974a-49c3-b2e2-70e6bd64d1d2',
       static_url: 'http://localhost:3000',
-      token : ''
+      token : localStorage.access_token
     }
   },
   actions: {
@@ -29,9 +29,7 @@ export const useMainStore = defineStore('main', {
         router.push('/')
         Swal.fire({
           title: "Success Login!",
-          icon: "success",
-          // showConfirmButton: false,
-          // timer: 1500
+          icon: "success"
         })
       } catch (error) {
         console.log(error);
@@ -124,6 +122,29 @@ export const useMainStore = defineStore('main', {
         this.bookmarkData = data
       } catch (error) {
         console.log(error);
+      }
+    },
+
+    async subscribeMail(email) {
+      try {
+        const { data } = await axios({
+          method: 'POST',
+          url: `${this.static_url}/`,
+          data: {
+            email
+          }
+        })
+        Swal.fire({
+          toast: true,
+          position: 'top',
+          title: "Subscribed to newsletter!",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        })
+        console.log(data);
+      } catch (error) {
+        
       }
     }
   }
