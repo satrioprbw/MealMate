@@ -1,11 +1,11 @@
 <script>
 import { mapActions, mapState } from 'pinia';
-import Card from '../components/Card.vue'
+import MiniCard from '../components/MiniCard.vue'
 import { useMainStore } from '../stores/main';
 
 export default {
   components: {
-    Card
+    MiniCard
   },
   data() {
     return {
@@ -44,9 +44,10 @@ export default {
           <tbody>
             <tr v-for="recipes in bookmarkData">
               <td>
-                <Card  :recipes="recipes" />
               </td>
-              <td><i class="fa fa-close"></i></td>
+              <td><i class="fa fa-close"></i>
+                <MiniCard :recipes="recipes" />
+              </td>
               <td class="text-center">
               </td>
               <td><i class="fa fa-close"></i></td>

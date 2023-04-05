@@ -8,29 +8,34 @@ export default {
   data() {
     return {
       searchInput: '',
-
       emailLogin: '',
       passwordLogin: '',
       usernameRegister: '',
       emailRegister: '',
-      passwordRegister: ''
-      token : localStorage.access_token
-
+      passwordRegister: '',
+      subscribeConsent: true
     }
   },
   methods: {
-    ...mapActions(useMainStore, ['loginHandler', 'logoutHandler']),
+    ...mapActions(useMainStore, ['loginHandler', 'logoutHandler', 'registerHandler', 'subscribeMail']),
     handleSubmitLogin() {
       this.loginHandler(this.emailLogin, this.passwordLogin)
       this.emailLogin = ''
       this.passwordLogin = ''
       
+    },
+    handleSubmitRegister() {
+      this.registerHandler(this.usernameRegister, this.emailRegister, this.passwordRegister)
+      if(this.subscribeConsent){
+        this.subscribeMail(this.emailRegister)
+      }
+      this.usernameRegister = ''
+      this.emailRegister = ''
+      this.passwordRegister = ''
     }
   },
   computed: {
     ...mapState(useMainStore, ['token'])
-  },
-  created(){
   }
 }
 </script>
@@ -44,7 +49,7 @@ export default {
           <img src="../assets/logo-no-background.png" width="180" height="30" alt="logo">
         </a>
         <div>
-          <button @click.prevent="$router.push('/bookmark')" class="btn btn-warning col-12 me-3">Bookmark</button>
+          <button @click.prevent="$router.push('/bookmark')" :class="token?'btn btn-warning col-12 me-3':'btn btn-warning disabled'">Bookmark</button>
         </div>
         <div v-if="!token" class="ms-3">
           <a class="btn btn-dark" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Login / Register</a>
@@ -57,7 +62,7 @@ export default {
       </nav>
     </div>
   </div>
-  <div v-if="!token" class="modal fade" id="exampleModalToggle" aria-hidden="true"
+  <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -114,7 +119,7 @@ export default {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" style="background-color: #FDEEDC;">
-          <form @submit.prevent="handleSubmit">
+          <form @submit.prevent="handleSubmitRegister">
 
             <div class="d-flex align-items-center mb-3 pb-1">
               <a @click.prevent="$router.push('/')" href="#" class="h1 fw-bold mb-0 "><img style="width: 200px;"
@@ -139,6 +144,11 @@ export default {
               <input v-model="passwordRegister" name="password" type="password" id="inputPassword"
                 class="form-control form-control-lg" />
               <label class="form-label" for="inputPassword">Password</label>
+            </div>
+
+            <div class="mb-2">
+              <input v-model="subscribeConsent" type="checkbox" >
+              <span class="ms-2">Subscribe to our newsletter</span>
             </div>
 
             <div class="pt-1 mb-1">
