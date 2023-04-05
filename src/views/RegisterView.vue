@@ -8,12 +8,12 @@ export default {
       email: '',
       password: '',
       username: ''
+
     }
   },
   methods: {
     ...mapActions(useMainStore, ['loginHandler']),
     handleSubmit() {
-
       this.loginHandler(this.email, this.password)
     }
   }
@@ -64,6 +64,7 @@ export default {
 
                     <p class="mt-4 pb-lg-2">Already have an account? <a @click.prevent="$router.push('/login')" href="#!"
                         style="color: #393f81;">Login
+
                         here</a></p>
                   </form>
 
@@ -73,6 +74,7 @@ export default {
                 <img src="https://feelgoodfoodie.net/wp-content/uploads/2021/09/Tuna-Salad-Meal-Prep-09.jpg"
                   alt="login form" class="h-100 img-fluid object-fit-cover" style="border-radius: 0 1rem 1rem 0;" />
               </div>
+
             </div>
           </div>
         </div>

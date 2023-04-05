@@ -8,11 +8,14 @@ export default {
   data() {
     return {
       searchInput: '',
+
       emailLogin: '',
       passwordLogin: '',
       usernameRegister: '',
       emailRegister: '',
       passwordRegister: ''
+      token : localStorage.access_token
+
     }
   },
   methods: {
@@ -35,6 +38,7 @@ export default {
 <template>
   <div class="card" style="border-radius: 1rem;">
     <div class="row g-0">
+
       <nav class="navbar fixed-top navbar-expand-lg" style="background-color: #E38B29;">
         <a @click.prevent="$router.push('/')" class="navbar-brand" href="#" style="margin-left: 20px;">
           <img src="../assets/logo-no-background.png" width="180" height="30" alt="logo">
@@ -44,6 +48,7 @@ export default {
         </div>
         <div v-if="!token" class="ms-3">
           <a class="btn btn-dark" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Login / Register</a>
+
         </div>
         <div v-else class="ms-3">
           <a @click.prevent="logoutHandler" class="btn btn-dark" href="#" role="button">Logout</a>
