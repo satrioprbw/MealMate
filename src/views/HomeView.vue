@@ -45,18 +45,18 @@ export default {
     <div class="overflow-auto mx-5 pb-5"
       style=" padding-bottom: 100px; height: 800px; background-color: #F1A661; border-radius: 10px;">
       <div class="col-lg-12 col-sm-6 col-md-8 d-flex flex-row flex-wrap justify-content-center">
-        <Card v-for="recipes in recipeData.data.recipes" :recipes="recipes" />
+        <Card v-for="recipes in recipeData?.data?.recipes" :recipes="recipes" />
       </div>
     </div>
   </div>
-  <div id="container">
-    <div id="map"></div>
+    <div id="map">
+
+    </div>
     <!-- <div id="sidebar">
       <h2>Results</h2>
       <ul id="places"></ul>
       <button id="more">Load more results</button>
     </div> -->
-  </div>
 </template>
 
 <style>

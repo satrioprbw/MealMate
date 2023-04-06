@@ -17,7 +17,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(useMainStore, ['loginHandler', 'logoutHandler', 'registerHandler', 'subscribeMail']),
+    ...mapActions(useMainStore, ['loginHandler', 'logoutHandler', 'registerHandler', 'subscribeMail', 'googleLogin']),
     handleSubmitLogin() {
       this.loginHandler(this.emailLogin, this.passwordLogin)
       this.emailLogin = ''
@@ -32,6 +32,9 @@ export default {
       this.usernameRegister = ''
       this.emailRegister = ''
       this.passwordRegister = ''
+    },
+    callback(response){
+      this.googleLogin(response)
     }
   },
   computed: {
@@ -113,7 +116,7 @@ export default {
               <p style="margin-top: 20px">or Sign In with</p>
             </div>
 
-            <!-- <GoogleLogin :callback="callback" prompt /> -->
+            <GoogleLogin :callback="callback" prompt />
 
           </form>
         </div>
