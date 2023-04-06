@@ -16,13 +16,13 @@ export default {
     Card
   },
   methods: {
-    ...mapActions(useMainStore, ['fetchRecipe']),
+    ...mapActions(useMainStore, ['fetchRecipe', 'getLocation']),
     handleSearch() {
       this.fetchRecipe(this.searchInput)
     }
   },
   computed: {
-    ...mapState(useMainStore, ['recipeData', 'token'])
+    ...mapState(useMainStore, ['recipeData', 'token', 'latitude', 'longitude'])
 
   },
   created() {
@@ -48,6 +48,14 @@ export default {
         <Card v-for="recipes in recipeData.data.recipes" :recipes="recipes" />
       </div>
     </div>
+  </div>
+  <div id="container">
+    <div id="map"></div>
+    <!-- <div id="sidebar">
+      <h2>Results</h2>
+      <ul id="places"></ul>
+      <button id="more">Load more results</button>
+    </div> -->
   </div>
 </template>
 

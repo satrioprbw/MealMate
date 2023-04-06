@@ -9,7 +9,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(useMainStore, ['fetchDetail', 'addBookmark']),
+    ...mapActions(useMainStore, ['fetchDetail', 'addBookmark', '']),
     handleAdd() {
       this.addBookmark(this.detailRecipe.data.recipe.id, this.detailRecipe.data.recipe.image_url, this.detailRecipe.data.recipe.publisher, this.detailRecipe.data.recipe.title)
     }

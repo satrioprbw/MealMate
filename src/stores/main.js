@@ -12,12 +12,13 @@ export const useMainStore = defineStore('main', {
       mealplanData: {},
       apiKey: 'db64978c-974a-49c3-b2e2-70e6bd64d1d2',
       static_url: 'http://localhost:3000',
-      token : localStorage.access_token,
+      token: localStorage.access_token,
       city: '',
       region: '',
       country: '',
       longitude: '',
-      latitude: ''
+      latitude: '',
+      map: ''
     }
   },
   actions: {
@@ -47,7 +48,7 @@ export const useMainStore = defineStore('main', {
       }
     },
 
-    async registerHandler(username, email, password){
+    async registerHandler(username, email, password) {
       try {
         const { data } = await axios({
           method: 'POST',
@@ -103,7 +104,7 @@ export const useMainStore = defineStore('main', {
       }
     },
 
-    async fetchDetail(id){
+    async fetchDetail(id) {
       try {
         const { data } = await axios({
           method: 'GET',
@@ -120,7 +121,7 @@ export const useMainStore = defineStore('main', {
       }
     },
 
-    async addBookmark(RecipeId, image_url, publisher, title){
+    async addBookmark(RecipeId, image_url, publisher, title) {
       try {
         const { data } = await axios({
           method: 'POST',
@@ -129,7 +130,7 @@ export const useMainStore = defineStore('main', {
             image_url, publisher, title
           },
           headers: {
-            access_token : localStorage.access_token
+            access_token: localStorage.access_token
           }
         })
         Swal.fire({
@@ -148,13 +149,13 @@ export const useMainStore = defineStore('main', {
       }
     },
 
-    async removeBookmark(id){
+    async removeBookmark(id) {
       try {
         const { data } = await axios({
           method: 'PATCH',
           url: `${this.static_url}/bookmark/${id}`,
           headers: {
-            access_token : localStorage.access_token
+            access_token: localStorage.access_token
           }
         })
         Swal.fire({
@@ -176,7 +177,7 @@ export const useMainStore = defineStore('main', {
       }
     },
 
-    async addMealplan(id, day, order){
+    async addMealplan(id, day, order) {
       console.log(id, day, order);
       try {
         const { data } = await axios({
@@ -186,7 +187,7 @@ export const useMainStore = defineStore('main', {
             day, order
           },
           headers: {
-            access_token : localStorage.access_token
+            access_token: localStorage.access_token
           }
         })
         Swal.fire({
@@ -275,6 +276,105 @@ export const useMainStore = defineStore('main', {
           text: error.response.data.message,
           icon: "error"
         })
+      }
+    },
+
+    async getLocation() {
+      try {
+        const API_KEY = 'b98cf529e2894fceba58417493983c0c'
+        const API_URL = 'https://ipgeolocation.abstractapi.com/v1/?api_key=b98cf529e2894fceba58417493983c0c'
+        const apiResponse = await fetch(API_URL)
+        const data = await apiResponse.json()
+        console.log(data);
+        this.city = data.city
+        this.region = data.region
+        this.country = data.country
+        this.longitude = data.longitude
+        this.latitude = data.latitude
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error"
+        })
+      }
+    },
+
+    async initMap() {
+      try {
+        const city = { lat: this.latitude, lng: this.longitude }
+
+        infoWindow = new google.maps.infoWindow()
+        const map = new google.maps.Map(
+          document.getElementById("map"),
+          {
+            center: city,
+            zoom: 17
+          })
+        const service = new google.maps.places.PlacesService(map)
+        let getNextPage
+        const moreButton = document.getElementById("more")
+
+        moreButton.onclick = function () {
+          moreButton.disabled = true
+          if (getNextPage) {
+            getNextPage
+          }
+        }
+
+        service.nearbySearch(
+          { location: city, radius: 500, type: "store" },
+          (results, status, pagination) => {
+            if (status !== 'OK' || !results) return
+
+            addPlaces(results, map)
+            moreButton.disabled = !pagination || !pagination.hasNextPage
+            if (pagination && pagination.hasNextPage) {
+              getNextPage = () => {
+                pagination.nextPage()
+              }
+            }
+          }
+        )
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async addPlaces(places, map) {
+      try {
+        const placesList = document.getElementById("places")
+
+        for (const place of places) {
+          if (place.geometry && place.geometry.location) {
+            const image = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            }
+
+            new google.maps.Marker({
+              map,
+              icon: image,
+              title: place.name,
+              position: place.geometry.location
+            })
+
+            const li = document.createElement("li")
+
+            li.textContent = place.name
+            placesList.appendChild(li)
+            li.addEventListener("click", () => {
+              map.setCenter(place.geometry.location)
+            })
+          }
+        }
+
+        window.initMap = this.initMap
+      } catch (error) {
+        console.log(error);
       }
     }
   }

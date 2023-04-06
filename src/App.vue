@@ -1,11 +1,12 @@
 <script >
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
+import CloseBuy from './components/CloseBuy.vue'
 
 
 export default {
   components: {
-    Navbar, Footer
+    Navbar, Footer, CloseBuy
   }
 }
 </script>
@@ -14,6 +15,7 @@ export default {
   
   <Navbar />
   <RouterView />
+  <CloseBuy />
   <Footer />
 </template>
 
